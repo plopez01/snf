@@ -1,2 +1,2 @@
 # snf
-A simple compression system
+A simple and fast compression system
