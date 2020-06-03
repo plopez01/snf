@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
 	}
 	else {
 		//ERROR
+		fprintf(stderr, "Cannot open file");
 		return 1;
 	}
 
