@@ -32,30 +32,9 @@ void freeArray(DynamicArray *a) {
 	a->used = a->size = 0;
 }
 
-void splitString(char str[]) {
-	char arr[15][15];
-	int wordcount = 0;
-	int charcount = 0;
-	for (int i = 0; i < strlen(str); i++) {
-		if (str[i] == ' ') {
-			wordcount++;
-			charcount = 0;
-			continue;
-		}
-		arr[wordcount][charcount] = str[i];
-		charcount++;
-		//printf("%c", str[i]);
-	}
-	printf("%c", arr[2][0]);
-	
-}
 
 int main(int argc, char *argv[]) {
 
-
-	splitString("hola que tal");
-	
-	return 0;
 
 	//File to compress
 	FILE *fp;
@@ -64,6 +43,8 @@ int main(int argc, char *argv[]) {
 	//Dynamic array dictionary
 	DynamicArray dict;
 	initArray(&dict, 1);
+
+	//Calculated compression dictionary
 	char str[15];
 	char arr[15][15];
 	int wordcount = 0;
@@ -79,6 +60,8 @@ int main(int argc, char *argv[]) {
 		//printf("%c", str[i]);
 	}
 	printf("%c", arr[2][0]);
+
+	//File compression with dictionary
 	static int compressed[15];
 	for (int i = 0; i < wordcount; i++) {
 		for (int j = 0; j < dict.size; j++) {
@@ -87,8 +70,7 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
-	return compressed;
-	int *compText = compressText("hola que tal", &dict);
+
 
 	//Open file to compress
 	err = fopen_s(&fp, argv[1], "r");
