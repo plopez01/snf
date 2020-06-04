@@ -33,7 +33,30 @@ void freeArray(DynamicArray *a) {
 	a->used = a->size = 0;
 }
 
+void splitString(char str[]) {
+	char arr[15][15];
+	int wordcount = 0;
+	int charcount = 0;
+	for (int i = 0; i < strlen(str); i++) {
+		if (str[i] == ' ') {
+			wordcount++;
+			charcount = 0;
+			continue;
+		}
+		arr[wordcount][charcount] = str[i];
+		charcount++;
+		//printf("%c", str[i]);
+	}
+	printf("%c", arr[2][0]);
+	
+}
+
 int main(int argc, char *argv[]) {
+
+
+	splitString("hola que tal");
+	
+	return 0;
 
 	//File to compress
 	FILE *fp;
@@ -79,6 +102,4 @@ int main(int argc, char *argv[]) {
 		fprintf(stderr, "Cannot open file");
 		return 1;
 	}
-
-	
 }
