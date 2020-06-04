@@ -50,6 +50,33 @@ void splitString(char str[]) {
 	
 }
 
+//int funcition to make the text indexed with the diccionary
+int *compressText(char str[], DynamicArray *a) {
+	char arr[15][15];
+	int wordcount = 0;
+	int charcount = 0;
+	for (int i = 0; i < strlen(str); i++) {
+		if (str[i] == ' ') {
+			wordcount++;
+			charcount = 0;
+			continue;
+		}
+		arr[wordcount][charcount] = str[i];
+		charcount++;
+		//printf("%c", str[i]);
+	}
+	printf("%c", arr[2][0]);
+	static int compressed[15];
+	for (int i = 0; i < wordcount; i++) {
+		for (int j = 0; j < a->size; j++) {
+			if (arr[i] == a->array[j]) {
+				compressed[i] = j;
+			}
+		}
+	}
+	return compressed;
+}
+
 int main(int argc, char *argv[]) {
 
 
@@ -64,6 +91,8 @@ int main(int argc, char *argv[]) {
 	//Dynamic array dictionary
 	DynamicArray dict;
 	initArray(&dict, 1);
+	
+	int *compText = compressText("hola que tal", &dict);
 
 	//Open file to compress
 	err = fopen_s(&fp, argv[1], "r");
