@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Objecto de C
 typedef struct {
 	char *array;
 	size_t used;
