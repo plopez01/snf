@@ -2,15 +2,16 @@
 #include <stdlib.h>
 
 typedef struct {
-	int *array;
+	char *array;
 	size_t used;
 	size_t size;
 } DynamicArray;
 
 
-//Based from https://stackoverflow.com/questions/3536153/c-dynamically-growing-array
+//Based from https://stackoverflow.com/questions/3536153/c-dynamically-growing-array and adapted to the program
+//TODO: Maybe change system to only reserve necessary memory
 void initArray(DynamicArray *a, size_t initialSize) {
-	a->array = (char *)malloc(initialSize * sizeof(char));
+	a->array = malloc(initialSize * sizeof(char));
 	a->used = 0;
 	a->size = initialSize;
 }
@@ -19,7 +20,7 @@ void insertArray(DynamicArray *a, int element) {
 
 	if (a->used == a->size) {
 		a->size *= 2;
-		a->array = (char *)realloc(a->array, a->size * sizeof(char));
+		a->array = realloc(a->array, a->size * sizeof(char));
 	}
 	a->array[a->used++] = element;
 }
