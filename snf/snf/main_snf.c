@@ -57,15 +57,13 @@ int main(int argc, char *argv[]) {
 		char* buffer = malloc(sz * sizeof(char));
 
 		//Reads text data from the file
-		size_t fcontent = fgets(buffer, sz, fp);
+		while (fgets(buffer, sz, fp)) {
+			printf("%s", buffer);
+		}
 
-		printf("%d\n", sz);
+		printf("\n%d", sz);
 
-		//Prints the text data
-		for (int i = 0; i < sz; i++) {
-
-			printf("%c ", buffer[i]);
-		}		
+			
 
 		//Closes read file
 		fclose(fp);
