@@ -1,14 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct {
+	int *array;
+	size_t used;
+	size_t size;
+} DynamicArray;
+
+
+//Based from https://stackoverflow.com/questions/3536153/c-dynamically-growing-array
+void initArray(DynamicArray *a, size_t initialSize) {
+	a->array = (char *)malloc(initialSize * sizeof(char));
+	a->used = 0;
+	a->size = initialSize;
+}
+
+void insertArray(DynamicArray *a, int element) {
+
+	if (a->used == a->size) {
+		a->size *= 2;
+		a->array = (char *)realloc(a->array, a->size * sizeof(char));
+	}
+	a->array[a->used++] = element;
+}
+
+void freeArray(DynamicArray *a) {
+	free(a->array);
+	a->array = NULL;
+	a->used = a->size = 0;
+}
+
 int main(int argc, char *argv[]) {
 
 	//File to compress
 	FILE *fp;
 	errno_t err;
 	
-	//Dictionary
-	unsigned int dict[20];
+	//Dynamic array dictionary
+	DynamicArray dict;
+	initArray(&dict, 1);
+
 	//Open file to compress
 	err = fopen_s(&fp, argv[1], "r");
 
