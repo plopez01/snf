@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-//Objecto de C
 typedef struct {
 	char *array;
 	size_t used;
@@ -33,7 +32,57 @@ void freeArray(DynamicArray *a) {
 	a->used = a->size = 0;
 }
 
+void splitString(char str[]) {
+	char arr[15][15];
+	int wordcount = 0;
+	int charcount = 0;
+	for (int i = 0; i < strlen(str); i++) {
+		if (str[i] == ' ') {
+			wordcount++;
+			charcount = 0;
+			continue;
+		}
+		arr[wordcount][charcount] = str[i];
+		charcount++;
+		//printf("%c", str[i]);
+	}
+	printf("%c", arr[2][0]);
+	
+}
+
+//int funcition to make the text indexed with the diccionary
+int *compressText(char str[], DynamicArray *a) {
+	char arr[15][15];
+	int wordcount = 0;
+	int charcount = 0;
+	for (int i = 0; i < strlen(str); i++) {
+		if (str[i] == ' ') {
+			wordcount++;
+			charcount = 0;
+			continue;
+		}
+		arr[wordcount][charcount] = str[i];
+		charcount++;
+		//printf("%c", str[i]);
+	}
+	printf("%c", arr[2][0]);
+	static int compressed[15];
+	for (int i = 0; i < wordcount; i++) {
+		for (int j = 0; j < a->size; j++) {
+			if (arr[i] == a->array[j]) {
+				compressed[i] = j;
+			}
+		}
+	}
+	return compressed;
+}
+
 int main(int argc, char *argv[]) {
+
+
+	splitString("hola que tal");
+	
+	return 0;
 
 	//File to compress
 	FILE *fp;
@@ -42,6 +91,8 @@ int main(int argc, char *argv[]) {
 	//Dynamic array dictionary
 	DynamicArray dict;
 	initArray(&dict, 1);
+	
+	int *compText = compressText("hola que tal", &dict);
 
 	//Open file to compress
 	err = fopen_s(&fp, argv[1], "r");
@@ -57,15 +108,13 @@ int main(int argc, char *argv[]) {
 		char* buffer = malloc(sz * sizeof(char));
 
 		//Reads text data from the file
-		size_t fcontent = fgets(buffer, sz, fp);
+		while (fgets(buffer, sz, fp)) {
+			printf("%s", buffer);
+		}
 
-		printf("%d\n", sz);
+		printf("\n%d", sz);
 
-		//Prints the text data
-		for (int i = 0; i < sz; i++) {
-
-			printf("%c ", buffer[i]);
-		}		
+			
 
 		//Closes read file
 		fclose(fp);
@@ -81,6 +130,4 @@ int main(int argc, char *argv[]) {
 		fprintf(stderr, "Cannot open file");
 		return 1;
 	}
-
-	
 }
