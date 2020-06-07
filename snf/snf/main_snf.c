@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 	initArray(&dict, 1);
 
 	//Calculated compression dictionary
-	char str[15];
+	char str[15] = "Hola que tal";
 	char arr[15][15];
 	int wordcount = 0;
 	int charcount = 0;
@@ -59,7 +59,6 @@ int main(int argc, char *argv[]) {
 		charcount++;
 		//printf("%c", str[i]);
 	}
-	printf("%c", arr[2][0]);
 
 	//File compression with dictionary
 	static int compressed[15];
