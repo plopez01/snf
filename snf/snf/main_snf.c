@@ -33,6 +33,8 @@ void freeArray(DynamicArray *a) {
 }
 
 
+
+
 int main(int argc, char *argv[]) {
 
 
@@ -60,10 +62,23 @@ int main(int argc, char *argv[]) {
 		//printf("%c", str[i]);
 	}
 
+	//Creation of the dictionary
+	for (int i = 0; i < wordcount; i++) {
+		int isRepeated = 0;
+		for (int j = 0; j < sizeof(dict.array); i++) {
+			if (dict.array[j] == arr[i]) {
+				isRepeated = 1;
+			}
+		}
+		if (!isRepeated) {
+			dict.array[i] = arr[i];
+		}
+	}
+
 	//File compression with dictionary
 	static int compressed[15];
 	for (int i = 0; i < wordcount; i++) {
-		for (int j = 0; j < dict.size; j++) {
+		for (int j = 0; j < sizeof(dict.array); j++) {
 			if (arr[i] == dict.array[j]) {
 				compressed[i] = j;
 			}
